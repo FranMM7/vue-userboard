@@ -14,6 +14,7 @@
 <script>
 import RegistrationForm from '@/components/RegistrationForm.vue';
 import UserList from '@/components/UserList.vue';
+import { ref } from 'vue';
 
 export default {
   name: 'App',
