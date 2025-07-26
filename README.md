@@ -7,8 +7,8 @@ This app allows users to view a paginated list of registered users and submit a 
 
 ## 🚀 Live Demo
 
-👉 [Live deployed version](https://vue-userboard-livid.vercel.app)  
-_Replace with your actual deployed link_
+👉 [Live deployed version](https://vue-userboard.vercel.app)  
+
 
 ## 📸 Screenshots
 
