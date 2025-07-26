@@ -1,12 +1,13 @@
 {
   "name": "vue-userboard",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release": "standard-version"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
@@ -17,6 +18,7 @@
     "@vitejs/plugin-vue": "^6.0.0",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
+    "standard-version": "^9.5.0",
     "tailwindcss": "^3.4.17",
     "vite": "^7.0.4"
   }
