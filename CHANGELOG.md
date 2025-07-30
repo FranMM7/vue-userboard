@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.8](https://github.com/FranMM7/vue-userboard/compare/v0.0.7...v0.0.8) (2025-07-30)
+
+
+### Features
+
+* **header:** implement scrollToSection behavior for navigation buttons ([6fa11ce](https://github.com/FranMM7/vue-userboard/commit/6fa11ce1ca87c7c4a9025b5759ec448c7f9f3c8f))
+
 ### [0.0.7](https://github.com/FranMM7/vue-userboard/compare/v0.0.6...v0.0.7) (2025-07-30)
 
 
