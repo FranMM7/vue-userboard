@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/FranMM7/vue-userboard/compare/v0.0.3...v0.0.4) (2025-07-30)
+
+
+### Features
+
+* add responsive WelcomeCard and SuccessMessage components + shared UI components ([30d5b57](https://github.com/FranMM7/vue-userboard/commit/30d5b57df0eda3221f02aeb8b91eb3f6d805701a))
+
 ### [0.0.3](https://github.com/FranMM7/vue-userboard/compare/v0.0.2...v0.0.3) (2025-07-29)
 
 ### [0.0.2](https://github.com/FranMM7/vue-userboard/compare/v0.0.1...v0.0.2) (2025-07-26)
