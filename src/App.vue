@@ -8,11 +8,15 @@
       <WelcomeCard />
 
       <!-- UserList displays the list of users; ref used for direct method calls -->
-      <UserList ref="userListRef" />
+      <section id="users">
+        <UserList ref="userListRef" />
+      </section>
 
       <!-- RegistrationForm emits 'registered' event when a user registers -->
       <!-- handleUserRegistered is called on this event -->
-      <RegistrationForm @registered="handleUserRegistered" />
+      <section id="signup">
+        <RegistrationForm @registered="handleUserRegistered" />
+      </section>
     </main>
   </div>
 </template>

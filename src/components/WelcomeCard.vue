@@ -31,23 +31,19 @@
       <!-- CTA Button -->
       <!-- Submit button -->
       <div class="text-center pt-4">
-        <ActionButton
-          :label="'Sign up'"
-          :variant="isSubmitting ? 'secondary' : 'primary'"
-          type="submit"
-          :disabled="isSubmitting"
-        />
+        <ActionButton label="Sign up" @click="scrollToSection('signup')" />
       </div>
     </div>
   </section>
 </template>
 
-<script>
+<script setup>
 import ActionButton from "@/components/shared/ActionButton.vue";
-export default {
-  name: "WelcomeCard",
-  components: {
-    ActionButton,
-  },
+
+const scrollToSection = (sectionId) => {
+  const el = document.getElementById(sectionId);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
 };
 </script>
