@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/FranMM7/vue-userboard/compare/v0.0.5...v0.0.6) (2025-07-30)
+
+
+### Bug Fixes
+
+* Correct component location ([d71f41a](https://github.com/FranMM7/vue-userboard/commit/d71f41ac8d4bf57008b5f1b4512b36724c0441ef))
+
 ### [0.0.5](https://github.com/FranMM7/vue-userboard/compare/v0.0.4...v0.0.5) (2025-07-30)
 
 ### [0.0.4](https://github.com/FranMM7/vue-userboard/compare/v0.0.3...v0.0.4) (2025-07-30)
