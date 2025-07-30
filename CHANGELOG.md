@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/FranMM7/vue-userboard/compare/v0.0.6...v0.0.7) (2025-07-30)
+
+
+### Bug Fixes
+
+* remove SucceessMessage component from index to avoid Prod errors ([6f6b55e](https://github.com/FranMM7/vue-userboard/commit/6f6b55e369434f49c091950eecde766d665000dc))
+
 ### [0.0.6](https://github.com/FranMM7/vue-userboard/compare/v0.0.5...v0.0.6) (2025-07-30)
 
 
