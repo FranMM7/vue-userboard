@@ -107,7 +107,7 @@ Breakdown:
 ## 👤 Author
 
 - **Francis Mejía**  
-  [LinkedIn](https://www.linkedin.com/in/mejiafrancised)  
+  [LinkedIn](https://www.linkedin.com/in/mejiafrancised/?locale=en_US)  
   [GitHub](https://github.com/franmm7)
 
 ---
