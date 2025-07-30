@@ -37,28 +37,13 @@
       />
 
       <!-- Position selection (radio buttons) -->
-      <div>
-        <p class="mb-2 font-semibold">Select your position:</p>
-        <div class="space-y-2">
-          <label
-            v-for="pos in positions"
-            :key="pos.id"
-            class="flex items-center gap-2"
-          >
-            <input
-              type="radio"
-              :value="pos.id"
-              v-model="form.position_id"
-              required
-            />
-            {{ pos.name }}
-          </label>
-        </div>
-        <!-- Error message for position selection -->
-        <span v-if="errors.position_id" class="text-red-500 text-sm">{{
-          errors.position_id
-        }}</span>
-      </div>
+      <OptionSelect
+        label="Select your position:"
+        :options="positions"
+        v-model="form.position_id"
+        :required="true"
+        :error="errors.position_id"
+      />
 
       <!-- Photo upload field -->
       <UploadFile
@@ -89,7 +74,12 @@
 <script>
 import { ref, onMounted } from "vue";
 import { getPositions, getToken, registerUser } from "@/services/api";
-import { ActionButton, UploadFile, InputControl } from "./shared";
+import {
+  ActionButton,
+  UploadFile,
+  InputControl,
+  OptionSelect,
+} from "@/components/shared";
 
 export default {
   name: "RegistrationForm",
@@ -98,6 +88,7 @@ export default {
     ActionButton,
     UploadFile,
     InputControl,
+    OptionSelect,
   },
   setup(_, { emit }) {
     // Form data

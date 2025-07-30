@@ -4,11 +4,15 @@
     <!-- Header component at the top -->
     <Header />
     <main>
+      <!-- WelcomeCard component displays a welcome message -->
+      <WelcomeCard />
+
+      <!-- UserList displays the list of users; ref used for direct method calls -->
+      <UserList ref="userListRef" />
+
       <!-- RegistrationForm emits 'registered' event when a user registers -->
       <!-- handleUserRegistered is called on this event -->
       <RegistrationForm @registered="handleUserRegistered" />
-      <!-- UserList displays the list of users; ref used for direct method calls -->
-      <UserList ref="userListRef" />
     </main>
   </div>
 </template>
@@ -18,12 +22,14 @@ import { ref } from "vue";
 import { Header } from "@/components/shared";
 import RegistrationForm from "@/components/RegistrationForm.vue";
 import UserList from "@/components/UserList.vue";
+import WelcomeCard from "@/components/WelcomeCard.vue";
 export default {
   name: "App",
   components: {
     RegistrationForm, // Form for registering new users
     UserList, // Displays registered users
     Header, // Page header
+    WelcomeCard, // Welcome message and introduction
   },
   setup() {
     // Reference to the UserList component instance
