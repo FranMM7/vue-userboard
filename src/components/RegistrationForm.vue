@@ -94,7 +94,7 @@ export default {
     SuccessMessage,
   },
   setup(_, { emit }) {
-    // Form data
+    // Reactive form data object
     const form = ref({
       name: "",
       email: "",
@@ -103,29 +103,29 @@ export default {
       photo: null,
     });
 
-    // Validation errors
+    // Holds validation error messages for each field
     const errors = ref({});
-    // List of available positions
+    // Stores the list of available positions fetched from the API
     const positions = ref([]);
-    // Submission state
+    // Indicates if the form is currently being submitted
     const isSubmitting = ref(false);
-    // Success state
+    // Indicates if the registration was successful
     const success = ref(false);
 
-    // Handles file selection for photo upload
+    // Handles file selection for the photo upload field
     const handleFile = (file) => {
       if (!file || !file.type.startsWith("image/")) {
         errors.value.photo = "Please select a valid image file.";
         return;
       }
 
-      // Validación opcional: tamaño máximo 2MB
+      // Optional validation: maximum file size 2MB
       if (file.size > 2 * 1024 * 1024) {
         errors.value.photo = "File too large. Max 2MB.";
         return;
       }
 
-      // Limpia error y guarda el archivo
+      // Clear previous error and save the selected file
       errors.value.photo = null;
       form.value.photo = file;
     };
