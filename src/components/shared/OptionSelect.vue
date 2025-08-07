@@ -23,7 +23,10 @@
         >
           <!-- Dot center -->
           <div
-            class="w-2 h-2 rounded-full bg-secondary opacity-0 scale-75 peer-checked:opacity-100 peer-checked:scale-100 transition-all"
+            :class="[
+              'w-2 h-2 rounded-full bg-secondary scale-75 transition-all',
+              modelValue === option.id ? 'opacity-100 scale-100' : 'opacity-0',
+            ]"
           ></div>
         </div>
         <span>{{ option.name }}</span>

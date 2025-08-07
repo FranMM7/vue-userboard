@@ -6,10 +6,23 @@
       Working with GET request
     </h2>
 
+    <div
+      v-if="isLoading && users.length === 0"
+      class="flex justify-center items-center min-h-[300px]"
+    >
+      <PreloaderUI />
+    </div>
+
     <!-- Grid of user cards -->
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
       <!-- Render a UserCard for each user -->
       <UserCard v-for="user in users" :key="user.id" :user="user" />
+    </div>
+    <div
+      v-if="isLoading && users.length > 0"
+      class="flex justify-center items-center min-h-[300px]"
+    >
+      <PreloaderUI />
     </div>
 
     <!-- Show more button, only if there are more pages -->
@@ -27,11 +40,11 @@
 <script>
 import { ref, onMounted, defineExpose } from "vue";
 import { getUsers } from "@/services/api";
-import { UserCard, ActionButton } from "@/components/shared";
+import { UserCard, ActionButton, PreloaderUI } from "@/components/shared";
 
 export default {
   name: "UserList",
-  components: { UserCard, ActionButton },
+  components: { UserCard, ActionButton, PreloaderUI },
 
   setup() {
     // List of users to display

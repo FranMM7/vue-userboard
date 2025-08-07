@@ -1,73 +1,74 @@
 <template>
   <!-- Registration form section -->
   <section class="py-10 px-4 max-w-2xl mx-auto">
-    <!-- Title -->
-    <h2 class="text-2xl font-bold text-center mb-6">
-      Working with POST request
-    </h2>
+    <div v-if="success" class="text-green-600 text-center font-semibold">
+      <SuccessMessage />
+    </div>
+    <div v-else>
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-center mb-6">
+        Working with POST request
+      </h2>
 
-    <!-- Registration form -->
-    <form @submit.prevent="handleSubmit" class="space-y-6">
-      <!-- Name input field -->
-      <InputControl
-        v-model="form.name"
-        label="Your Name"
-        helper-text="John Doe"
-        errorText="Name is required"
-        :hasError="errors.name"
-      />
-
-      <!-- Email input field -->
-      <InputControl
-        v-model="form.email"
-        label="Your Email"
-        helper-text="example@example.com"
-        errorText="Email is required"
-        :hasError="errors.email"
-      />
-
-      <!-- Phone input field -->
-      <InputControl
-        v-model="form.phone"
-        type="tel"
-        label="Your Phone"
-        helper-text="+380XXXXXXXXX"
-        errorText="Phone is required"
-        :hasError="errors.phone"
-      />
-
-      <!-- Position selection (radio buttons) -->
-      <OptionSelect
-        label="Select your position:"
-        :options="positions"
-        v-model="form.position_id"
-        :required="true"
-        :error="errors.position_id"
-      />
-
-      <!-- Photo upload field -->
-      <UploadFile
-        :hasError="errors.photo"
-        :errorMessage="'Please select a valid file.'"
-        placeholder="Upload your photo"
-        @file-selected="onFileSelected"
-      />
-
-      <!-- Submit button -->
-      <div class="text-center pt-4">
-        <ActionButton
-          :label="isSubmitting ? 'Submitting...' : 'Sign Up'"
-          :variant="isSubmitting ? 'secondary' : 'primary'"
-          type="submit"
-          :disabled="isSubmitting"
+      <!-- Registration form -->
+      <form @submit.prevent="handleSubmit" class="space-y-6">
+        <!-- Name input field -->
+        <InputControl
+          v-model="form.name"
+          label="Your Name"
+          helper-text="John Doe"
+          errorText="Name is required"
+          :hasError="errors.name"
         />
-      </div>
 
-      <!-- Success message after registration -->
-      <p v-if="success" class="text-green-600 text-center font-semibold">
-        Registration successful!
-      </p>
-    </form>
+        <!-- Email input field -->
+        <InputControl
+          v-model="form.email"
+          label="Your Email"
+          helper-text="example@example.com"
+          errorText="Email is required"
+          :hasError="errors.email"
+        />
+
+        <!-- Phone input field -->
+        <InputControl
+          v-model="form.phone"
+          type="tel"
+          label="Your Phone"
+          helper-text="+380 (xx) xxx xxxx"
+          mask="+999 (99) 999-9999"
+          errorText="Phone is required"
+          :hasError="errors.phone"
+        />
+
+        <!-- Position selection (radio buttons) -->
+        <OptionSelect
+          label="Select your position:"
+          :options="positions"
+          v-model="form.position_id"
+          :required="true"
+          :error="errors.position_id"
+        />
+
+        <!-- Photo upload field -->
+        <UploadFile
+          :hasError="!!errors.photo"
+          :errorMessage="errors.photo || 'Please select a valid file.'"
+          placeholder="Upload your photo"
+          @file-selected="handleFile"
+        />
+
+        <!-- Submit button -->
+        <div class="text-center pt-4">
+          <ActionButton
+            :label="isSubmitting ? 'Submitting...' : 'Sign Up'"
+            :variant="isSubmitting ? 'secondary' : 'primary'"
+            type="submit"
+            :disabled="isSubmitting"
+          />
+        </div>
+      </form>
+    </div>
   </section>
 </template>
 
@@ -79,6 +80,7 @@ import {
   UploadFile,
   InputControl,
   OptionSelect,
+  SuccessMessage,
 } from "@/components/shared";
 
 export default {
@@ -89,6 +91,7 @@ export default {
     UploadFile,
     InputControl,
     OptionSelect,
+    SuccessMessage,
   },
   setup(_, { emit }) {
     // Form data
@@ -110,8 +113,20 @@ export default {
     const success = ref(false);
 
     // Handles file selection for photo upload
-    const handleFileChange = (e) => {
-      const file = e.target.files[0];
+    const handleFile = (file) => {
+      if (!file || !file.type.startsWith("image/")) {
+        errors.value.photo = "Please select a valid image file.";
+        return;
+      }
+
+      // Validación opcional: tamaño máximo 2MB
+      if (file.size > 2 * 1024 * 1024) {
+        errors.value.photo = "File too large. Max 2MB.";
+        return;
+      }
+
+      // Limpia error y guarda el archivo
+      errors.value.photo = null;
       form.value.photo = file;
     };
 
@@ -157,6 +172,13 @@ export default {
           photo: null,
         };
         emit("registered"); // Notify parent to refresh user list
+
+        // Reset success message after 2 seconds
+        setTimeout(() => {
+          success.value = false;
+          scrollToSection("users"); // Scroll to user section after successful registration
+        }, 2000);
+
       } catch (error) {
         // Handle API validation errors
         if (error.response?.data?.fails) {
@@ -190,10 +212,17 @@ export default {
       isSubmitting,
       success,
       handleSubmit,
-      handleFileChange,
+      handleFile,
       ActionButton,
     };
   },
+};
+
+const scrollToSection = (sectionId) => {
+  const el = document.getElementById(sectionId);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
 };
 </script>
 

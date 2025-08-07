@@ -1,90 +1,92 @@
 <template>
   <div class="relative w-full">
-    <!-- Floating label for the input -->
+    <!-- Floating label -->
     <label
       :for="id"
       class="absolute left-3 px-1 transition-all duration-200 bg-inputBg"
       @click="focusInput"
-      :class="[
-        isFocused || modelValue
-          ? 'text-xs -top-2 text-gray-600'
-          : 'text-sm top-3.5 text-gray-400',
-        hasError ? 'text-red-500' : '',
-      ]"
+      :class="[isFocused || modelValue ? 'text-xs -top-2 text-gray-600' : 'text-sm top-3.5 text-gray-400', hasError ? 'text-red-500' : '']"
     >
       {{ label }}
     </label>
 
-    <!-- Input field -->
+    <!-- Input -->
     <input
       ref="inputRef"
       :id="id"
-      :type="type"
-      :value="modelValue"
+      type="text"
+      :value="displayValue"
       :disabled="disabled"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @input="onInput"
       @focus="isFocused = true"
       @blur="isFocused = false"
       class="w-full px-3 pt-5 pb-2 border rounded-md bg-inputBg text-sm transition-all duration-200 outline-none"
-      :class="[
-        hasError
-          ? 'border-red-500'
-          : 'border-inputBorder focus:border-secondary',
-        disabled ? 'opacity-50 cursor-not-allowed' : '',
-      ]"
+      :class="[hasError ? 'border-red-500' : 'border-inputBorder focus:border-secondary', disabled ? 'opacity-50 cursor-not-allowed' : '']"
     />
 
-    <!-- Helper text or error message below the input -->
-    <p
-      class="mt-1 text-xs"
-      :class="hasError ? 'text-red-500' : 'text-gray-400'"
-    >
+    <!-- Helper / Error -->
+    <p class="mt-1 text-xs" :class="hasError ? 'text-red-500' : 'text-gray-400'">
       {{ hasError ? errorText : helperText }}
     </p>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch, computed } from 'vue';
 
-// Props for customizing input behavior and appearance
-defineProps({
-  id: String, // Input element ID
-  label: String, // Label text
-  type: {
-    type: String,
-    default: "text", // Input type (text, email, etc.)
-  },
-  modelValue: [String, Number], // v-model binding value
-  helperText: {
-    type: String,
-    default: "", // Helper text below input
-  },
-  errorText: {
-    type: String,
-    default: "", // Error message below input
-  },
-  hasError: {
-    type: Boolean,
-    default: false, // Whether to show error styling/message
-  },
-  disabled: {
-    type: Boolean,
-    default: false, // Whether input is disabled
-  },
+const props = defineProps({
+  id: String,
+  label: String,
+  modelValue: [String, Number],
+  helperText: { type: String, default: '' },
+  errorText: { type: String, default: '' },
+  hasError: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  mask: { type: String, default: null } // e.g. '(999) 999-9999'
 });
 
-// Emits update event for v-model
-defineEmits(["update:modelValue"]);
+const emit = defineEmits(['update:modelValue']);
 
-// Tracks input focus state for label animation
 const isFocused = ref(false);
-// Reference to the input element for focusing
 const inputRef = ref(null);
 
-// Focuses the input when label is clicked
 function focusInput() {
   isFocused.value = true;
   inputRef.value?.focus();
 }
+
+// Handle input changes and apply mask if present
+function onInput(event) {
+  const raw = event.target.value.replace(/\D/g, ''); // Remove non-digits
+  const formatted = props.mask ? applyMask(raw, props.mask) : event.target.value;
+  emit('update:modelValue', raw);
+  displayValue.value = formatted;
+}
+
+// Mask application logic
+function applyMask(value, mask) {
+  let result = '';
+  let valueIndex = 0;
+
+  for (let i = 0; i < mask.length && valueIndex < value.length; i++) {
+    if (mask[i] === '9') {
+      result += value[valueIndex++];
+    } else {
+      result += mask[i];
+    }
+  }
+
+  return result;
+}
+
+// Format initial value if modelValue changes externally
+const displayValue = ref('');
+watch(
+  () => props.modelValue,
+  (val) => {
+    const raw = typeof val === 'string' ? val.replace(/\D/g, '') : val?.toString() || '';
+    displayValue.value = props.mask ? applyMask(raw, props.mask) : raw;
+  },
+  { immediate: true }
+);
 </script>

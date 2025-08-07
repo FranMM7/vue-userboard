@@ -25,23 +25,23 @@
         <p class="truncate">{{ user.email }}</p>
       </TooltipComponent>
 
-      <!-- User phone with tooltip -->
-      <TooltipComponent :text="user.phone">
-        <p>{{ user.phone }}</p>
-      </TooltipComponent>
+      <!-- User phone with tooltip -->      
+      <LabelMask :model-value="user.phone" mask="+99 (99) 999-9999" />
     </div>
   </div>
 </template>
 
 <script>
-import ImageIncase from "./ImageIncase.vue";
-import TooltipComponent from "./TooltipComponent.vue";
+import ImageIncase from "@/components/shared/ImageIncase.vue";
+import TooltipComponent from "@/components/shared/TooltipComponent.vue";
+import LabelMask from "@/components/shared/LabelMask.vue";
 
 export default {
   name: "UserCard",
   components: {
     ImageIncase,
     TooltipComponent,
+    LabelMask,
   },
   props: {
     // User object containing user details

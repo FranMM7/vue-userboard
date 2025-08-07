@@ -2,7 +2,7 @@
   <!-- Page header section -->
   <header class="bg-white w-full">
     <div
-      class="max-w-[1170px] mx-auto flex flex-col sm:flex-row items-center sm:justify-between px-4 py-5 gap-4 sm:gap-0"
+      class="max-w-[1170px] mx-auto flex flex-wrap items-center justify-between px-4 py-5 gap-4"
     >
       <!-- Logo area -->
       <div class="flex items-center gap-2">
