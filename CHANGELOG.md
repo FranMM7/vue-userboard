@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.9](https://github.com/FranMM7/vue-userboard/compare/v0.0.8...v0.0.9) (2025-08-07)
+
+
+### Features
+
+* add LabelMask component and improve InputControl masking ([a3d131a](https://github.com/FranMM7/vue-userboard/commit/a3d131ae4b9d1ff91b98d358f1d30d8ed0c38262))
+
 ### [0.0.8](https://github.com/FranMM7/vue-userboard/compare/v0.0.7...v0.0.8) (2025-07-30)
 
 
